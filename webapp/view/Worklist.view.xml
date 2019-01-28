@@ -1,0 +1,66 @@
+<mvc:View controllerName="whr.com.br.ZLARTrocaTurno.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Page showHeader="true" title="Troca de Turno" showFooter="true" showNavButton="true">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<f:SimpleForm id="SimpleFormChange480_12120" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="12"
+					adjustLabelSpan="false" emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1">
+					<f:content>
+						<Label text="Horário Contratual"/>
+						<Text text="{cabecalhoModel>/horarioContratual}"/>
+						<Label text="Tipo de Troca" visible="false"/>
+						<HBox visible="false">
+							<RadioButton groupName="Tipo" text="Provisória" selected="true"/>
+							<RadioButton groupName="Tipo" text="Permanente"/>
+						</HBox>
+						<Label text="Vál. desde"/>
+						<DatePicker id="DataInicio" width="140px" placeholder="" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" change="handleChange"
+							class="sapUiSmallMarginBottom"/>
+						<Label text="Vál. até"/>
+						<DatePicker id="DataFim" width="140px" placeholder="" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd" change="handleChange"
+							class="sapUiSmallMarginBottom"  />
+						<Label text="Descrição do Horário"/>
+						<ComboBox xmlns:sap.ui.core="sap.ui.core" ariaLabelledBy="__xmlview0--unitNumberColumnTitle" items="{/MC_DESCHORARIOSet}"
+							selectedKey="{descHorarioModel>/Value}" id="descHorario" width="350px" selectionChange="onchangeComboPeriodo">
+							<items>
+								<sap.ui.core:ListItem key="00" text="" enabled="true"/>
+								<sap.ui.core:ListItem key="{Value}" text="{Text}" enabled="true"/>
+							</items>
+						</ComboBox>
+						<Button text="Visualizar Relatório" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" press="onPesquisar"
+							iconDensityAware="false"/>
+					</f:content>
+				</f:SimpleForm>
+			</VBox>
+			<Table id="table" width="auto" items="{ path: '/DESCHORARIOSet', sorter: { path: 'Horario', descending: false } }"
+				noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+				<columns>
+					<Column id="diaCol">
+						<Text text="Dia" id="Dia"/>
+					</Column>
+					<Column id="horarioCol">
+						<Text text="Horário" id="Horario1"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Inactive" press="onPress">
+						<cells>
+							<Text text="{path: 'Data', formatter: '.formatDate'}" id="Data"/>
+							<Text xmlns="sap.m" text="{Horario}" id="Horario"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Toolbar height="46px" design="Solid" enabled="true" visible="true" class="sapUiResponsiveMargin">
+				<content>
+					<ToolbarSpacer width=""/>
+					<Button text="Gravar" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" press="onGravar"
+						iconDensityAware="false"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>
